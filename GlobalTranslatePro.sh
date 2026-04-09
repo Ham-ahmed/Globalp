@@ -1,10 +1,10 @@
 #!/bin/sh
-#############################################
+###################################################
 # GlobalTranslatePro Plugin Installer for Enigma2
-# Version: 5.2
+# Version: 5.1
 # Author: HAMDY_AHMED
-# Improved: Added Enigma2 restart after successful installation
-############################################
+# Improved: Auto-restart after plugin installation
+###################################################
 
 # Color definitions
 RED='\033[0;31m'
@@ -18,8 +18,8 @@ NC='\033[0m' # No Color
 
 # Script configuration
 PLUGIN_NAME="GlobalTranslatePro"
-VERSION="5.2"
-GITHUB_RAW="https://raw.githubusercontent.com/Ham-ahmed/Globalp/refs/heads/main"
+VERSION="5.1"
+GITHUB_RAW="https://raw.githubusercontent.com/Ham-ahmed/GlobalA/refs/heads/main"
 # Try different possible package names
 PACKAGE_NAMES="${PLUGIN_NAME}-${VERSION}.tar.gz ${PLUGIN_NAME}.tar.gz ${PLUGIN_NAME}_${VERSION}.tar.gz plugin.tar.gz"
 TEMP_DIR="/var/volatile/tmp"
@@ -50,11 +50,11 @@ cleanup() {
 # ============================
 print_banner() {
     clear
-    echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${WHITE}                    ${PLUGIN_NAME} Plugin Installer v${VERSION}                    ${NC}"
-    echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${WHITE}                    Developer: HAMDY_AHMED                         ${NC}"
-    echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
+    echo -e "${CYAN}════════════════════════════════════════════════════${NC}"
+    echo -e "${WHITE}   ${PLUGIN_NAME} Plugin Installer v${VERSION}     ${NC}"
+    echo -e "${CYAN}════════════════════════════════════════════════════${NC}"
+    echo -e "${WHITE}             Developer: HAMDY_AHMED                ${NC}"
+    echo -e "${CYAN}══════=═════════════════════════════════════════════${NC}"
     echo ""
 }
 
@@ -396,12 +396,11 @@ show_completion() {
 # Function: Restart Enigma2
 # =============================
 restart_enigma2() {
-    echo -e "${YELLOW}══════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${YELLOW}              🔄 RESTARTING ENIGMA2                             ${NC}"
-    echo -e "${YELLOW}══════════════════════════════════════════════════════════════════${NC}"
+    echo -e "${YELLOW}═══════════════════════════════${NC}"
+    echo -e "${YELLOW}     🔄 RESTARTING ENIGMA2     ${NC}"
+    echo -e "${YELLOW}═══════════════════════════════${NC}"
     echo ""
     echo -e "${WHITE}⏳ Enigma2 will restart in 5 seconds...${NC}"
-    echo -e "${WHITE}   Press Ctrl+C to cancel restart${NC}"
     echo ""
     
     # Countdown
@@ -489,41 +488,6 @@ restart_enigma2() {
     fi
 }
 
-# ==============================
-# Function: Ask for restart
-# =============================
-ask_for_restart() {
-    echo ""
-    echo -e "${YELLOW}══════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${YELLOW}              🔄 ENIGMA2 RESTART OPTION                          ${NC}"
-    echo -e "${YELLOW}══════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${WHITE}   To activate the plugin properly, Enigma2 needs to restart${NC}"
-    echo -e "${WHITE}   This will reload all plugins and apply changes${NC}"
-    echo ""
-    echo -e "${CYAN}   Do you want to restart Enigma2 now?${NC}"
-    echo -e "${WHITE}   - Press ${GREEN}Y${WHITE} for Yes (recommended)${NC}"
-    echo -e "${WHITE}   - Press ${RED}N${WHITE} for No (restart manually later)${NC}"
-    echo ""
-    echo -e "${YELLOW}   Choice (y/n):${NC} \c"
-    
-    read -r response
-    case "$response" in
-        [yY][eE][sS]|[yY]|"")
-            restart_enigma2
-            ;;
-        [nN][oO]|[nN])
-            echo -e "${BLUE}▶ Restart cancelled by user${NC}"
-            echo -e "${WHITE}  Please restart Enigma2 manually to activate the plugin${NC}"
-            echo -e "${WHITE}  To restart manually: killall enigma2${NC}"
-            echo -e "${WHITE}  Or use: init 4; init 3${NC}"
-            ;;
-        *)
-            echo -e "${RED}  ✗ Invalid choice${NC}"
-            echo -e "${YELLOW}  ⚠ Please restart Enigma2 manually to activate the plugin${NC}"
-            ;;
-    esac
-}
-
 # ===============================
 # Main installation process
 # ===============================
@@ -546,17 +510,21 @@ main() {
     # Show completion message
     show_completion
     
-    # Ask for restart confirmation
-    ask_for_restart
+    # Auto restart Enigma2 (no user prompt)
+    restart_enigma2
     
     # Final cleanup
     echo -e "${BLUE}▶ Final cleanup...${NC}"
     rm -f "${TEMP_DIR}/package_contents.txt" 2>/dev/null
     
     echo ""
-    echo -e "${GREEN}══════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${GREEN}              🎉 INSTALLATION PROCESS COMPLETED!                  ${NC}"
-    echo -e "${GREEN}══════════════════════════════════════════════════════════════════${NC}"
+    echo -e "${GREEN}══════════════════════════════════════${NC}"
+    echo -e "${GREEN}  🎉 INSTALLATION PROCESS COMPLETED!  ${NC}"
+    echo -e "${GREEN}══════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${MAGENTA}    🎈 Enjoy with plugin! 🎈${NC}"
+    echo -e "${MAGENTA}════════════════════════════${NC}"
+    echo ""
     
     exit 0
 }

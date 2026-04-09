@@ -1,7 +1,7 @@
 #!/bin/sh
 ###################################################
 # GlobalTranslatePro Plugin Installer for Enigma2
-# Version: 5.1
+# Version: 5.2
 # Author: HAMDY_AHMED
 # Improved: Auto-restart after plugin installation
 ###################################################
@@ -18,7 +18,7 @@ NC='\033[0m' # No Color
 
 # Script configuration
 PLUGIN_NAME="GlobalTranslatePro"
-VERSION="5.1"
+VERSION="5.2"
 GITHUB_RAW="https://raw.githubusercontent.com/Ham-ahmed/GlobalA/refs/heads/main"
 # Try different possible package names
 PACKAGE_NAMES="${PLUGIN_NAME}-${VERSION}.tar.gz ${PLUGIN_NAME}.tar.gz ${PLUGIN_NAME}_${VERSION}.tar.gz plugin.tar.gz"
